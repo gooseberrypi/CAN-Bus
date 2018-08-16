@@ -4,13 +4,16 @@
   :file: test_can_packet_manager.c
 :successes:
 - :test: test_get_PID_length
-  :line: 19
+  :line: 20
+  :message: ''
+- :test: test_can_pm_set_id
+  :line: 36
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 1
-  :passed: 1
+  :total: 2
+  :passed: 2
   :failed: 0
   :ignored: 0
 :stdout: []

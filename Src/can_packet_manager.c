@@ -17,6 +17,14 @@
     #define STATIC static
 #endif
 
+/***************************************************************************************************
+ * Set the message ID, currently there is no error checking, future improvements will address this.
+ ***************************************************************************************************/
+can_packet_manager_status can_pm_set_id(CAN_message_t *packetPtr, uint32_t new_id) {
+	packetPtr->id = new_id;
+	return can_pm_success;
+}
+
 STATIC uint8_t get_PID_length(uint16_t pid) {
 	return 1U + (pid >> 8 || 0);
 }

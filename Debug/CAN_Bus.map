@@ -555,17 +555,19 @@ Discarded input sections
  .text          0x00000000        0x0 Src\can_packet_manager.o
  .data          0x00000000        0x0 Src\can_packet_manager.o
  .bss           0x00000000        0x0 Src\can_packet_manager.o
+ .text.can_pm_set_id
+                0x00000000       0x1e Src\can_packet_manager.o
  .text.get_PID_length
                 0x00000000       0x26 Src\can_packet_manager.o
- .debug_info    0x00000000      0x969 Src\can_packet_manager.o
- .debug_abbrev  0x00000000      0x187 Src\can_packet_manager.o
+ .debug_info    0x00000000      0xa34 Src\can_packet_manager.o
+ .debug_abbrev  0x00000000      0x1ce Src\can_packet_manager.o
  .debug_aranges
-                0x00000000       0x20 Src\can_packet_manager.o
- .debug_ranges  0x00000000       0x10 Src\can_packet_manager.o
- .debug_line    0x00000000      0x243 Src\can_packet_manager.o
- .debug_str     0x00000000      0x65d Src\can_packet_manager.o
+                0x00000000       0x28 Src\can_packet_manager.o
+ .debug_ranges  0x00000000       0x18 Src\can_packet_manager.o
+ .debug_line    0x00000000      0x274 Src\can_packet_manager.o
+ .debug_str     0x00000000      0x6c8 Src\can_packet_manager.o
  .comment       0x00000000       0x7d Src\can_packet_manager.o
- .debug_frame   0x00000000       0x38 Src\can_packet_manager.o
+ .debug_frame   0x00000000       0x60 Src\can_packet_manager.o
  .ARM.attributes
                 0x00000000       0x39 Src\can_packet_manager.o
  .text          0x00000000        0x0 Src\gpio.o

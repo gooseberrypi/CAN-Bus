@@ -1,1 +1,2 @@
-can_packet_manager.c:20:16:get_PID_length	16	static
+can_packet_manager.c:23:27:can_pm_set_id	16	static
+can_packet_manager.c:28:16:get_PID_length	16	static

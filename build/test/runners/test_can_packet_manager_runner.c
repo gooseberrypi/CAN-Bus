@@ -37,6 +37,7 @@ char* GlobalOrderError;
 extern void setUp(void);
 extern void tearDown(void);
 extern void test_get_PID_length(void);
+extern void test_can_pm_set_id(void);
 
 
 /*=======Mock Management=====*/
@@ -72,7 +73,8 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_can_packet_manager.c");
-  RUN_TEST(test_get_PID_length, 19);
+  RUN_TEST(test_get_PID_length, 20);
+  RUN_TEST(test_can_pm_set_id, 36);
 
   CMock_Guts_MemFreeFinal();
   return (UnityEnd());

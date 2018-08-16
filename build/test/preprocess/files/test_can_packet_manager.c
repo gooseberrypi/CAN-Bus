@@ -8,6 +8,8 @@
 
 
 
+
+
 void setUp( void )
 
 {
@@ -40,7 +42,7 @@ void test_get_PID_length(void)
 
  {
 
-  UnityAssertEqualNumber((UNITY_INT)((1U)), (UNITY_INT)((get_PID_length(pid))), (("PID length not as expected")), (UNITY_UINT)(23), UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((UNITY_INT)((1U)), (UNITY_INT)((get_PID_length(pid))), (("PID length not as expected")), (UNITY_UINT)(24), UNITY_DISPLAY_STYLE_INT);
 
  }
 
@@ -48,7 +50,55 @@ void test_get_PID_length(void)
 
  {
 
-  UnityAssertEqualNumber((UNITY_INT)((2U)), (UNITY_INT)((get_PID_length(pid))), (("PID length not as expected")), (UNITY_UINT)(27), UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((UNITY_INT)((2U)), (UNITY_INT)((get_PID_length(pid))), (("PID length not as expected")), (UNITY_UINT)(28), UNITY_DISPLAY_STYLE_INT);
+
+ }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+void test_can_pm_set_id(void)
+
+{
+
+ CAN_message_t can_pm_set_id_test_message;
+
+ can_packet_manager_status status_test_var;
+
+ uint32_t id_max_value;
+
+
+
+
+
+
+
+
+
+ id_max_value= 0xFFFFFF;
+
+
+
+
+
+ for(uint32_t id = 0; id < id_max_value; id++)
+
+ {
+
+  status_test_var = can_pm_set_id(&can_pm_set_id_test_message, id);
+
+  UnityAssertEqualNumber((UNITY_INT)((id)), (UNITY_INT)((can_pm_set_id_test_message.id)), (("ID is not as expected")), (UNITY_UINT)(51), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)((can_pm_success)), (UNITY_INT)((status_test_var)), (("Status message is not as expected")), (UNITY_UINT)(52), UNITY_DISPLAY_STYLE_INT);
 
  }
 
