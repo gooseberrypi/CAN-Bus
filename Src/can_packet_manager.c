@@ -25,6 +25,11 @@ can_packet_manager_status can_pm_set_id(CAN_message_t *packetPtr, uint32_t new_i
 	return can_pm_success;
 }
 
+can_packet_manager_status can_pm_generate_message(CAN_message_t *packetPtr, pid_request_t *pid, uint8_t numPids) {
+	uint8_t numBytes = 0;
+
+}
+
 STATIC uint8_t get_PID_length(uint16_t pid) {
 	return 1U + (pid >> 8 || 0);
 }
