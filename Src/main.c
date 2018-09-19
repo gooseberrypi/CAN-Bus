@@ -39,6 +39,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "can_packet_manager.h"
 #include "can.h"
 #include "gpio.h"
 
@@ -97,6 +98,10 @@ int main(void)
   MX_CAN1_Init();
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
+
+  CAN_message_t CAN_ECU[5];
+
+
 
   /* USER CODE END 2 */
 

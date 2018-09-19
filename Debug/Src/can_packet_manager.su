@@ -1,2 +1,5 @@
-can_packet_manager.c:23:27:can_pm_set_id	16	static
-can_packet_manager.c:28:16:get_PID_length	16	static
+can_packet_manager.c:24:16:get_PID_length	16	static
+can_packet_manager.c:32:13:populate_PID_array_length	32	static
+can_packet_manager.c:40:13:init_CAN_message_t	24	static
+can_packet_manager.c:57:27:can_pm_set_id	16	static
+can_packet_manager.c:62:27:can_pm_generate_message	32	static

@@ -555,19 +555,25 @@ Discarded input sections
  .text          0x00000000        0x0 Src\can_packet_manager.o
  .data          0x00000000        0x0 Src\can_packet_manager.o
  .bss           0x00000000        0x0 Src\can_packet_manager.o
+ .text.get_PID_length
+                0x00000000       0x30 Src\can_packet_manager.o
+ .text.populate_PID_array_length
+                0x00000000       0x44 Src\can_packet_manager.o
+ .text.init_CAN_message_t
+                0x00000000       0x4a Src\can_packet_manager.o
  .text.can_pm_set_id
                 0x00000000       0x1e Src\can_packet_manager.o
- .text.get_PID_length
-                0x00000000       0x26 Src\can_packet_manager.o
- .debug_info    0x00000000      0xa34 Src\can_packet_manager.o
- .debug_abbrev  0x00000000      0x1ce Src\can_packet_manager.o
+ .text.can_pm_generate_message
+                0x00000000      0x14a Src\can_packet_manager.o
+ .debug_info    0x00000000      0xbbc Src\can_packet_manager.o
+ .debug_abbrev  0x00000000      0x24a Src\can_packet_manager.o
  .debug_aranges
-                0x00000000       0x28 Src\can_packet_manager.o
- .debug_ranges  0x00000000       0x18 Src\can_packet_manager.o
- .debug_line    0x00000000      0x274 Src\can_packet_manager.o
- .debug_str     0x00000000      0x6c8 Src\can_packet_manager.o
+                0x00000000       0x40 Src\can_packet_manager.o
+ .debug_ranges  0x00000000       0x30 Src\can_packet_manager.o
+ .debug_line    0x00000000      0x313 Src\can_packet_manager.o
+ .debug_str     0x00000000      0x76b Src\can_packet_manager.o
  .comment       0x00000000       0x7d Src\can_packet_manager.o
- .debug_frame   0x00000000       0x60 Src\can_packet_manager.o
+ .debug_frame   0x00000000       0xd4 Src\can_packet_manager.o
  .ARM.attributes
                 0x00000000       0x39 Src\can_packet_manager.o
  .text          0x00000000        0x0 Src\gpio.o
@@ -763,9 +769,8 @@ LOAD c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../l
  .text.MX_GPIO_Init
                 0x08001840      0x130 Src\gpio.o
                 0x08001840                MX_GPIO_Init
- .text.main     0x08001970       0x1a Src\main.o
+ .text.main     0x08001970       0x1c Src\main.o
                 0x08001970                main
- *fill*         0x0800198a        0x2 
  .text.SystemClock_Config
                 0x0800198c       0xd8 Src\main.o
                 0x0800198c                SystemClock_Config
@@ -1073,7 +1078,7 @@ LOAD c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../l
                 0x000003cf       0x22 c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../lib/gcc/arm-atollic-eabi/6.3.1/armv7e-m/fpu/crtn.o
 OUTPUT(CAN_Bus.elf elf32-littlearm)
 
-.debug_info     0x00000000     0xc66f
+.debug_info     0x00000000     0xc708
  .debug_info    0x00000000     0x1170 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.o
  .debug_info    0x00001170     0x16a8 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.o
  .debug_info    0x00002818     0x1600 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.o
@@ -1082,13 +1087,13 @@ OUTPUT(CAN_Bus.elf elf32-littlearm)
  .debug_info    0x00005ed2     0x1195 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.o
  .debug_info    0x00007067     0x10f2 Src\can.o
  .debug_info    0x00008159      0xcc1 Src\gpio.o
- .debug_info    0x00008e1a     0x1333 Src\main.o
- .debug_info    0x0000a14d      0xd9a Src\stm32f4xx_hal_msp.o
- .debug_info    0x0000aee7      0x9c8 Src\stm32f4xx_it.o
- .debug_info    0x0000b8af      0xd4b Src\system_stm32f4xx.o
- .debug_info    0x0000c5fa       0x75 startup\startup_stm32f446xx.o
+ .debug_info    0x00008e1a     0x13cc Src\main.o
+ .debug_info    0x0000a1e6      0xd9a Src\stm32f4xx_hal_msp.o
+ .debug_info    0x0000af80      0x9c8 Src\stm32f4xx_it.o
+ .debug_info    0x0000b948      0xd4b Src\system_stm32f4xx.o
+ .debug_info    0x0000c693       0x75 startup\startup_stm32f446xx.o
 
-.debug_abbrev   0x00000000     0x1b4d
+.debug_abbrev   0x00000000     0x1b56
  .debug_abbrev  0x00000000      0x280 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.o
  .debug_abbrev  0x00000280      0x2d2 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.o
  .debug_abbrev  0x00000552      0x371 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.o
@@ -1097,11 +1102,11 @@ OUTPUT(CAN_Bus.elf elf32-littlearm)
  .debug_abbrev  0x00000dd7      0x23f Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.o
  .debug_abbrev  0x00001016      0x221 Src\can.o
  .debug_abbrev  0x00001237      0x1a8 Src\gpio.o
- .debug_abbrev  0x000013df      0x239 Src\main.o
- .debug_abbrev  0x00001618      0x1c9 Src\stm32f4xx_hal_msp.o
- .debug_abbrev  0x000017e1      0x190 Src\stm32f4xx_it.o
- .debug_abbrev  0x00001971      0x1ca Src\system_stm32f4xx.o
- .debug_abbrev  0x00001b3b       0x12 startup\startup_stm32f446xx.o
+ .debug_abbrev  0x000013df      0x242 Src\main.o
+ .debug_abbrev  0x00001621      0x1c9 Src\stm32f4xx_hal_msp.o
+ .debug_abbrev  0x000017ea      0x190 Src\stm32f4xx_it.o
+ .debug_abbrev  0x0000197a      0x1ca Src\system_stm32f4xx.o
+ .debug_abbrev  0x00001b44       0x12 startup\startup_stm32f446xx.o
 
 .debug_aranges  0x00000000      0x5e0
  .debug_aranges
@@ -1146,7 +1151,7 @@ OUTPUT(CAN_Bus.elf elf32-littlearm)
  .debug_ranges  0x000004e0       0x18 Src\system_stm32f4xx.o
  .debug_ranges  0x000004f8       0x20 startup\startup_stm32f446xx.o
 
-.debug_line     0x00000000     0x3336
+.debug_line     0x00000000     0x3350
  .debug_line    0x00000000      0x491 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.o
  .debug_line    0x00000491      0x787 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.o
  .debug_line    0x00000c18      0x5c9 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.o
@@ -1155,13 +1160,13 @@ OUTPUT(CAN_Bus.elf elf32-littlearm)
  .debug_line    0x00001b94      0x6ca Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.o
  .debug_line    0x0000225e      0x334 Src\can.o
  .debug_line    0x00002592      0x28a Src\gpio.o
- .debug_line    0x0000281c      0x319 Src\main.o
- .debug_line    0x00002b35      0x24c Src\stm32f4xx_hal_msp.o
- .debug_line    0x00002d81      0x2c6 Src\stm32f4xx_it.o
- .debug_line    0x00003047      0x270 Src\system_stm32f4xx.o
- .debug_line    0x000032b7       0x7f startup\startup_stm32f446xx.o
+ .debug_line    0x0000281c      0x333 Src\main.o
+ .debug_line    0x00002b4f      0x24c Src\stm32f4xx_hal_msp.o
+ .debug_line    0x00002d9b      0x2c6 Src\stm32f4xx_it.o
+ .debug_line    0x00003061      0x270 Src\system_stm32f4xx.o
+ .debug_line    0x000032d1       0x7f startup\startup_stm32f446xx.o
 
-.debug_str      0x00000000     0x24a6
+.debug_str      0x00000000     0x24bc
  .debug_str     0x00000000      0xf14 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.o
                                 0xfd4 (size before relaxing)
  .debug_str     0x00000f14      0x7ae Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.o
@@ -1178,13 +1183,13 @@ OUTPUT(CAN_Bus.elf elf32-littlearm)
                                 0xabe (size before relaxing)
  .debug_str     0x0000234b       0x1b Src\gpio.o
                                 0x7e2 (size before relaxing)
- .debug_str     0x00002366       0x3a Src\main.o
-                               0x1063 (size before relaxing)
- .debug_str     0x000023a0       0x1b Src\stm32f4xx_hal_msp.o
+ .debug_str     0x00002366       0x50 Src\main.o
+                               0x1095 (size before relaxing)
+ .debug_str     0x000023b6       0x1b Src\stm32f4xx_hal_msp.o
                                 0xc9c (size before relaxing)
- .debug_str     0x000023bb       0xa6 Src\stm32f4xx_it.o
+ .debug_str     0x000023d1       0xa6 Src\stm32f4xx_it.o
                                 0x6c4 (size before relaxing)
- .debug_str     0x00002461       0x45 Src\system_stm32f4xx.o
+ .debug_str     0x00002477       0x45 Src\system_stm32f4xx.o
                                 0x7e9 (size before relaxing)
 
 .comment        0x00000000       0x7c
@@ -1202,7 +1207,7 @@ OUTPUT(CAN_Bus.elf elf32-littlearm)
  .comment       0x0000007c       0x7d Src\stm32f4xx_it.o
  .comment       0x0000007c       0x7d Src\system_stm32f4xx.o
 
-.debug_frame    0x00000000     0x15f4
+.debug_frame    0x00000000     0x15f8
  .debug_frame   0x00000000      0x33c Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.o
  .debug_frame   0x0000033c      0x5a0 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.o
  .debug_frame   0x000008dc      0x498 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.o
@@ -1211,10 +1216,10 @@ OUTPUT(CAN_Bus.elf elf32-littlearm)
  .debug_frame   0x000010b8      0x1e8 Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.o
  .debug_frame   0x000012a0       0x90 Src\can.o
  .debug_frame   0x00001330       0x34 Src\gpio.o
- .debug_frame   0x00001364       0x6c Src\main.o
- .debug_frame   0x000013d0       0x34 Src\stm32f4xx_hal_msp.o
- .debug_frame   0x00001404      0x10c Src\stm32f4xx_it.o
- .debug_frame   0x00001510       0x58 Src\system_stm32f4xx.o
- .debug_frame   0x00001568       0x2c c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../lib/gcc/arm-atollic-eabi/6.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-init.o)
- .debug_frame   0x00001594       0x2c c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../lib/gcc/arm-atollic-eabi/6.3.1/armv7e-m/fpu\libgcc.a(_aeabi_uldivmod.o)
- .debug_frame   0x000015c0       0x34 c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../lib/gcc/arm-atollic-eabi/6.3.1/armv7e-m/fpu\libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00001364       0x70 Src\main.o
+ .debug_frame   0x000013d4       0x34 Src\stm32f4xx_hal_msp.o
+ .debug_frame   0x00001408      0x10c Src\stm32f4xx_it.o
+ .debug_frame   0x00001514       0x58 Src\system_stm32f4xx.o
+ .debug_frame   0x0000156c       0x2c c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../lib/gcc/arm-atollic-eabi/6.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-init.o)
+ .debug_frame   0x00001598       0x2c c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../lib/gcc/arm-atollic-eabi/6.3.1/armv7e-m/fpu\libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x000015c4       0x34 c:/program files (x86)/atollic/truestudio for stm32 9.0.1/armtools/bin/../lib/gcc/arm-atollic-eabi/6.3.1/armv7e-m/fpu\libgcc.a(_udivmoddi4.o)

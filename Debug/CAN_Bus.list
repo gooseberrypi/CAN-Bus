@@ -23,21 +23,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   9 .ARM.attributes 00000030  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 10 .debug_info   0000c66f  00000000  00000000  0002003c  2**0
+ 10 .debug_info   0000c708  00000000  00000000  0002003c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 00001b4d  00000000  00000000  0002c6ab  2**0
+ 11 .debug_abbrev 00001b56  00000000  00000000  0002c744  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_aranges 000005e0  00000000  00000000  0002e1f8  2**3
+ 12 .debug_aranges 000005e0  00000000  00000000  0002e2a0  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 00000518  00000000  00000000  0002e7d8  2**3
+ 13 .debug_ranges 00000518  00000000  00000000  0002e880  2**3
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   00003336  00000000  00000000  0002ecf0  2**0
+ 14 .debug_line   00003350  00000000  00000000  0002ed98  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    000024a6  00000000  00000000  00032026  2**0
+ 15 .debug_str    000024bc  00000000  00000000  000320e8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .comment      0000007c  00000000  00000000  000344cc  2**0
+ 16 .comment      0000007c  00000000  00000000  000345a4  2**0
                   CONTENTS, READONLY
- 17 .debug_frame  000015f4  00000000  00000000  00034548  2**2
+ 17 .debug_frame  000015f8  00000000  00000000  00034620  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -3811,40 +3811,40 @@ void MX_GPIO_Init(void)
 int main(void)
 {
  8001970:	b580      	push	{r7, lr}
- 8001972:	af00      	add	r7, sp, #0
+ 8001972:	b094      	sub	sp, #80	; 0x50
+ 8001974:	af00      	add	r7, sp, #0
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
- 8001974:	f7fe fdce 	bl	8000514 <HAL_Init>
+ 8001976:	f7fe fdcd 	bl	8000514 <HAL_Init>
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
- 8001978:	f000 f808 	bl	800198c <SystemClock_Config>
+ 800197a:	f000 f807 	bl	800198c <SystemClock_Config>
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
- 800197c:	f7ff ff60 	bl	8001840 <MX_GPIO_Init>
+ 800197e:	f7ff ff5f 	bl	8001840 <MX_GPIO_Init>
   MX_CAN1_Init();
- 8001980:	f7ff fe70 	bl	8001664 <MX_CAN1_Init>
+ 8001982:	f7ff fe6f 	bl	8001664 <MX_CAN1_Init>
   MX_CAN2_Init();
- 8001984:	f7ff fea6 	bl	80016d4 <MX_CAN2_Init>
+ 8001986:	f7ff fea5 	bl	80016d4 <MX_CAN2_Init>
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
- 8001988:	e7fe      	b.n	8001988 <main+0x18>
-	...
+ 800198a:	e7fe      	b.n	800198a <main+0x1a>
 
 0800198c <SystemClock_Config>:
 /**
@@ -3913,7 +3913,7 @@ void SystemClock_Config(void)
  80019ec:	d003      	beq.n	80019f6 <SystemClock_Config+0x6a>
   {
     _Error_Handler(__FILE__, __LINE__);
- 80019ee:	218d      	movs	r1, #141	; 0x8d
+ 80019ee:	2192      	movs	r1, #146	; 0x92
  80019f0:	481a      	ldr	r0, [pc, #104]	; (8001a5c <SystemClock_Config+0xd0>)
  80019f2:	f000 f837 	bl	8001a64 <_Error_Handler>
   }
@@ -3947,7 +3947,7 @@ void SystemClock_Config(void)
  8001a1a:	d003      	beq.n	8001a24 <SystemClock_Config+0x98>
   {
     _Error_Handler(__FILE__, __LINE__);
- 8001a1c:	219b      	movs	r1, #155	; 0x9b
+ 8001a1c:	21a0      	movs	r1, #160	; 0xa0
  8001a1e:	480f      	ldr	r0, [pc, #60]	; (8001a5c <SystemClock_Config+0xd0>)
  8001a20:	f000 f820 	bl	8001a64 <_Error_Handler>
   }
