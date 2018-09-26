@@ -146,7 +146,9 @@ void test_can_pm_generate_message(void)
 
 {
 
- CAN_message_t testPacket[4];
+ int NUM_TEST_PACKETS = 4;
+
+ CAN_message_t testPacket[NUM_TEST_PACKETS];
 
  pid_request_t pidReq[3] = {
 
@@ -166,20 +168,28 @@ void test_can_pm_generate_message(void)
 
 
 
- can_pm_generate_message(testPacket, 4, testMode , pidReq, 3);
+ can_pm_generate_message(testPacket, NUM_TEST_PACKETS, testMode , pidReq, 3);
 
 
 
- UnityAssertEqualNumber((UNITY_INT)((5)), (UNITY_INT)((testPacket[0].buf[0])), (("Length was not populated")), (UNITY_UINT)(88), UNITY_DISPLAY_STYLE_INT);
+ UnityAssertEqualNumber((UNITY_INT)((NUM_TEST_PACKETS)), (UNITY_INT)((sizeof(testPacket)/sizeof(testPacket[0]))), (
 
- UnityAssertEqualNumber((UNITY_INT)((testMode)), (UNITY_INT)((testPacket[0].buf[1])), (("Mode was not populated")), (UNITY_UINT)(89), UNITY_DISPLAY_STYLE_INT);
+((void *)0)
 
- UnityAssertEqualNumber((UNITY_INT)((pidReq[0].pid)), (UNITY_INT)((testPacket[0].buf[2])), (("PID1 was not populated")), (UNITY_UINT)(90), UNITY_DISPLAY_STYLE_INT);
+), (UNITY_UINT)(89), UNITY_DISPLAY_STYLE_INT);
 
- UnityAssertEqualNumber((UNITY_INT)((pidReq[1].pid)), (UNITY_INT)((testPacket[0].buf[3])), (("PID2 was not populated")), (UNITY_UINT)(91), UNITY_DISPLAY_STYLE_INT);
 
- UnityAssertEqualNumber((UNITY_INT)((0x22)), (UNITY_INT)((testPacket[0].buf[4])), (("PID3 was not populated")), (UNITY_UINT)(92), UNITY_DISPLAY_STYLE_INT);
 
- UnityAssertEqualNumber((UNITY_INT)((0x0D)), (UNITY_INT)((testPacket[0].buf[5])), (("PID3 was not populated")), (UNITY_UINT)(93), UNITY_DISPLAY_STYLE_INT);
+ UnityAssertEqualNumber((UNITY_INT)((5)), (UNITY_INT)((testPacket[0].buf[0])), (("Length was not populated")), (UNITY_UINT)(91), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((testMode)), (UNITY_INT)((testPacket[0].buf[1])), (("Mode was not populated")), (UNITY_UINT)(92), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((pidReq[0].pid)), (UNITY_INT)((testPacket[0].buf[2])), (("PID1 was not populated")), (UNITY_UINT)(93), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((pidReq[1].pid)), (UNITY_INT)((testPacket[0].buf[3])), (("PID2 was not populated")), (UNITY_UINT)(94), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((0x22)), (UNITY_INT)((testPacket[0].buf[4])), (("PID3 was not populated")), (UNITY_UINT)(95), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((0x0D)), (UNITY_INT)((testPacket[0].buf[5])), (("PID3 was not populated")), (UNITY_UINT)(96), UNITY_DISPLAY_STYLE_INT);
 
 }

@@ -17,6 +17,8 @@
     #define Static static
 #endif
 
+Static void nextByte(CAN_message_t *packetPtr, uint8_t numPackets);
+
 /***************************************************************************************************
 * Determine if the PID is 1 byte long or 2 bytes long. By assuming that a leading 0x00 is empty
 * data.
@@ -39,7 +41,7 @@ Static void populate_PID_array_length(pid_request_t *pidPtr, uint8_t numPids) {
 
 Static void init_CAN_message_t (CAN_message_t *CAN_mssg)
 {
-	CAN_mssg->ext	= CAN_EXTENDED;
+	CAN_mssg->ext	= CAN_EXTENDED_FLAG;
 	CAN_mssg->id	= 0x7E0;
 	CAN_mssg->len	= CAN_BUFFER_SIZE;
 
@@ -65,40 +67,80 @@ can_packet_manager_status can_pm_generate_message(CAN_message_t *packetPtr, uint
 	uint8_t curBtye = 0;
 	uint8_t frame = 0;
 
+	/*************************************************************************
+	 * Parse through the PID array and determine the length of each PID.
+	 * Populate the PID length in each typedef.
+	 *************************************************************************/
 	populate_PID_array_length(pidPtr, numPids);
 
+	/*************************************************************************
+	 * Parse through the PID array and count the number of bytes that are
+	 * required for the packet request.
+	 *************************************************************************/
 	for(uint8_t i = 0; i < numPids; i++)
 	{
 		numBytes += pidPtr[i].pid_len;
 	}
 
+	/*************************************************************************
+	 * Parse through each packet and initialize it to the determined header,
+	 * CAN bus mode and fill the packet buffer with 0x00.
+	 *************************************************************************/
 	for(uint8_t i = 0; i < numPackets; i++)
 	{
 		init_CAN_message_t(&packetPtr[i]);
 	}
 
+	/*************************************************************************
+	 * Determine if this will be a single frame request or multiframe
+	 * request. This is directly related to the number of bytes in the packet
+	 * and the size of the buffer.
+	 *************************************************************************/
 	if(numBytes < (CAN_BUFFER_SIZE - 1U)) // -1 for length byte
 	{
+		/*************** Length ***************/
 		packetPtr[0].buf[curBtye++] = numBytes;
+
+		/**************** Mode ****************/
 		packetPtr[0].buf[curBtye++] = mode;
-	} else {
+	}
+	else  // Multi frame
+	{
+		/**************** Frame ****************/
 		packetPtr[0].buf[curBtye++] = (frame | 0x10);
+
+		/*************** Length ***************/
 		packetPtr[0].buf[curBtye++] = numBytes;
+
+		/**************** Mode ****************/
 		packetPtr[0].buf[curBtye++] = mode;
 	}
 
+	/*************************************************************************
+	 * Iterate through every single PID and fill the buffer.
+	 *************************************************************************/
 	for(pidCount = 0; pidCount < numPids; pidCount++)
 	{
 		if(pidPtr[pidCount].pid_len == 1)
 		{
+			/**************** PID byte 1 ****************/
 			packetPtr[frame].buf[curBtye++] = pidPtr[pidCount].pid;
-		} else if(pidPtr[pidCount].pid_len == 2)
+		}
+		else if(pidPtr[pidCount].pid_len == 2)
 		{
+			/**************** PID byte 1 ****************/
 			packetPtr[frame].buf[curBtye++] = ((pidPtr[pidCount].pid) >> 8U) & 0xFF;
+
+			/**************** PID byte 2 ****************/
 			packetPtr[frame].buf[curBtye++] = (pidPtr[pidCount].pid) & 0xFF;
 		} else {
 		}
 	}
 	return can_pm_success;
+}
+
+Static void nextByte(CAN_message_t *packetPtr, uint8_t numPackets)
+{
+
 }
 

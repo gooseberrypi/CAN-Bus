@@ -73,7 +73,8 @@ void test_can_pm_set_id(void)
 
 void test_can_pm_generate_message(void)
 {
-	CAN_message_t testPacket[4];
+	int NUM_TEST_PACKETS = 4;
+	CAN_message_t testPacket[NUM_TEST_PACKETS];
 	pid_request_t pidReq[3] = {
 			{ .pid = 0x0C, .mode = 0x01 },
 			{ .pid = 0x0D, .mode = 0x01 },
@@ -83,7 +84,9 @@ void test_can_pm_generate_message(void)
 
 	uint8_t testMode = 0x01;
 
-	can_pm_generate_message(testPacket, 4, testMode , pidReq, 3);
+	can_pm_generate_message(testPacket, NUM_TEST_PACKETS, testMode , pidReq, 3);
+
+	TEST_ASSERT_EQUAL(NUM_TEST_PACKETS, sizeof(testPacket)/sizeof(testPacket[0]));
 
 	TEST_ASSERT_EQUAL_MESSAGE(5, testPacket[0].buf[0], "Length was not populated");
 	TEST_ASSERT_EQUAL_MESSAGE(testMode, testPacket[0].buf[1], "Mode was not populated");

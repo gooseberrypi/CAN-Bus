@@ -14,8 +14,8 @@
 
 #define CAN_11Bit
 #ifdef CAN_11Bit
-#define CAN_BUFFER_SIZE 8
-#define CAN_EXTENDED	0
+#define CAN_BUFFER_SIZE 	8U
+#define CAN_EXTENDED_FLAG	0U
 #endif
 
 #define DEFAULT_CAN_TIMEOUT 100
