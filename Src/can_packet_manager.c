@@ -6,10 +6,8 @@
  */
 
 #include "can_packet_manager.h"
+#include "stdio.h"
 
-#ifdef STM32F446xx
-#include "stm32f4xx_hal.h"
-#endif
 
 #ifdef TEST
     #define Static
@@ -17,7 +15,7 @@
     #define Static static
 #endif
 
-Static void nextByte(CAN_message_t *packetPtr, uint8_t numPackets);
+Static void nextByte( uint8_t *frame, uint8_t *curByte);
 
 /***************************************************************************************************
 * Determine if the PID is 1 byte long or 2 bytes long. By assuming that a leading 0x00 is empty
@@ -64,8 +62,8 @@ can_packet_manager_status can_pm_set_id(CAN_message_t *packetPtr, uint32_t new_i
 can_packet_manager_status can_pm_generate_message(CAN_message_t *packetPtr, uint8_t numPackets, uint8_t mode ,pid_request_t *pidPtr, uint8_t numPids) {
 	uint8_t numBytes = 1; //+1 for Mode
 	uint8_t pidCount = 0;
-	uint8_t curBtye = 0;
-	uint8_t frame = 0;
+	uint8_t curByte  = 0;
+	uint8_t frame    = 0;
 
 	/*************************************************************************
 	 * Parse through the PID array and determine the length of each PID.
@@ -99,21 +97,21 @@ can_packet_manager_status can_pm_generate_message(CAN_message_t *packetPtr, uint
 	if(numBytes < (CAN_BUFFER_SIZE - 1U)) // -1 for length byte
 	{
 		/*************** Length ***************/
-		packetPtr[0].buf[curBtye++] = numBytes;
+		packetPtr[0].buf[curByte++] = numBytes;
 
 		/**************** Mode ****************/
-		packetPtr[0].buf[curBtye++] = mode;
+		packetPtr[0].buf[curByte++] = mode;
 	}
 	else  // Multi frame
 	{
 		/**************** Frame ****************/
-		packetPtr[0].buf[curBtye++] = (frame | 0x10);
+		packetPtr[0].buf[curByte++] = (frame | 0x10);
 
 		/*************** Length ***************/
-		packetPtr[0].buf[curBtye++] = numBytes;
+		packetPtr[0].buf[curByte++] = numBytes;
 
 		/**************** Mode ****************/
-		packetPtr[0].buf[curBtye++] = mode;
+		packetPtr[0].buf[curByte++] = mode;
 	}
 
 	/*************************************************************************
@@ -124,23 +122,37 @@ can_packet_manager_status can_pm_generate_message(CAN_message_t *packetPtr, uint
 		if(pidPtr[pidCount].pid_len == 1)
 		{
 			/**************** PID byte 1 ****************/
-			packetPtr[frame].buf[curBtye++] = pidPtr[pidCount].pid;
+			packetPtr[frame].buf[curByte] = pidPtr[pidCount].pid;
+
+			/************* Increment Buffer *************/
+			nextByte( &frame, &curByte );
 		}
 		else if(pidPtr[pidCount].pid_len == 2)
 		{
 			/**************** PID byte 1 ****************/
-			packetPtr[frame].buf[curBtye++] = ((pidPtr[pidCount].pid) >> 8U) & 0xFF;
+			packetPtr[frame].buf[curByte] = ((pidPtr[pidCount].pid) >> 8U) & 0xFF;
+
+			/************* Increment Buffer *************/
+			nextByte( &frame, &curByte );
 
 			/**************** PID byte 2 ****************/
-			packetPtr[frame].buf[curBtye++] = (pidPtr[pidCount].pid) & 0xFF;
+			packetPtr[frame].buf[curByte] = (pidPtr[pidCount].pid) & 0xFF;
+
+			/************* Increment Buffer *************/
+			nextByte( &frame, &curByte );
 		} else {
 		}
 	}
 	return can_pm_success;
 }
 
-Static void nextByte(CAN_message_t *packetPtr, uint8_t numPackets)
+Static void nextByte( uint8_t *frame, uint8_t *curByte)
 {
-
+	if(*curByte + 1U < CAN_BUFFER_SIZE) {
+		(*curByte)++;
+	} else {
+		(*frame)++;
+		(*curByte) = 0;
+	}
 }
 

@@ -12,7 +12,7 @@
 - :test: test_can_pm_set_id
   :line: 50
   :message: ''
-- :test: test_can_pm_generate_message
+- :test: test_can_pm_generate_single_packet_message
   :line: 74
   :message: ''
 :failures: []

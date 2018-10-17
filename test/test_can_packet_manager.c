@@ -71,7 +71,7 @@ void test_can_pm_set_id(void)
  *
  ***************************************************************************************************/
 
-void test_can_pm_generate_message(void)
+void test_can_pm_generate_single_packet_message(void)
 {
 	int NUM_TEST_PACKETS = 4;
 	CAN_message_t testPacket[NUM_TEST_PACKETS];

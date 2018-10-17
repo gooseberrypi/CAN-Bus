@@ -142,7 +142,7 @@ void test_can_pm_set_id(void)
 
 
 
-void test_can_pm_generate_message(void)
+void test_can_pm_generate_single_packet_message(void)
 
 {
 
