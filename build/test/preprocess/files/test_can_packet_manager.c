@@ -64,7 +64,7 @@ void test_populate_PID_array_length(void)
 
 {
 
- pid_request_t pidReq[3] = {
+ static pid_request_t pidReq[3] = {
 
    { .pid = 0x0C, .mode = 0x01 },
 
@@ -191,5 +191,87 @@ void test_can_pm_generate_single_packet_message(void)
  UnityAssertEqualNumber((UNITY_INT)((0x22)), (UNITY_INT)((testPacket[0].buf[4])), (("PID3 was not populated")), (UNITY_UINT)(95), UNITY_DISPLAY_STYLE_INT);
 
  UnityAssertEqualNumber((UNITY_INT)((0x0D)), (UNITY_INT)((testPacket[0].buf[5])), (("PID3 was not populated")), (UNITY_UINT)(96), UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_can_pm_generate_multi_packet_message(void)
+
+{
+
+ int NUM_TEST_PACKETS = 4;
+
+ CAN_message_t testPacket[NUM_TEST_PACKETS];
+
+ pid_request_t pidReq[6] = {
+
+   { .pid = 0x0C, .mode = 0x01 },
+
+   { .pid = 0x0D, .mode = 0x01 },
+
+   { .pid = 0x220D, .mode = 0x01 },
+
+   { .pid = 0x0B, .mode = 0x01 },
+
+   { .pid = 0x5245, .mode = 0x01 },
+
+   { .pid = 0x6547, .mode = 0x01 }
+
+ };
+
+ uint8_t numIds = 1;
+
+
+
+ uint8_t testMode = 0x01;
+
+
+
+ can_pm_generate_message(testPacket, NUM_TEST_PACKETS, testMode , pidReq, 6);
+
+
+
+ UnityAssertEqualNumber((UNITY_INT)((NUM_TEST_PACKETS)), (UNITY_INT)((sizeof(testPacket)/sizeof(testPacket[0]))), (
+
+((void *)0)
+
+), (UNITY_UINT)(117), UNITY_DISPLAY_STYLE_INT);
+
+
+
+ UnityAssertEqualNumber((UNITY_INT)((0x10)), (UNITY_INT)((testPacket[0].buf[0])), (("frame was not populated")), (UNITY_UINT)(119), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((10)), (UNITY_INT)((testPacket[0].buf[1])), (("Length was not populated")), (UNITY_UINT)(120), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((testMode)), (UNITY_INT)((testPacket[0].buf[2])), (("Mode was not populated")), (UNITY_UINT)(121), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((pidReq[0].pid)), (UNITY_INT)((testPacket[0].buf[3])), (("PID1 was not populated")), (UNITY_UINT)(122), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((pidReq[1].pid)), (UNITY_INT)((testPacket[0].buf[4])), (("PID2 was not populated")), (UNITY_UINT)(123), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)(((pidReq[2].pid >> 8))), (UNITY_INT)((testPacket[0].buf[5])), (("PID3 was not populated")), (UNITY_UINT)(124), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)(((pidReq[2].pid & 0xFF))), (UNITY_INT)((testPacket[0].buf[6])), (("PID3 was not populated")), (UNITY_UINT)(125), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((pidReq[3].pid)), (UNITY_INT)((testPacket[0].buf[7])), (("PID4 was not populated")), (UNITY_UINT)(126), UNITY_DISPLAY_STYLE_INT);
+
+
+
+ UnityAssertEqualNumber((UNITY_INT)((0x21)), (UNITY_INT)((testPacket[1].buf[0])), (("frame was not populated")), (UNITY_UINT)(128), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)(((pidReq[4].pid >> 8))), (UNITY_INT)((testPacket[1].buf[1])), (("PID5 was not populated")), (UNITY_UINT)(129), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)(((pidReq[4].pid & 0xFF))), (UNITY_INT)((testPacket[1].buf[2])), (("PID5 was not populated")), (UNITY_UINT)(130), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)(((pidReq[5].pid >> 8))), (UNITY_INT)((testPacket[1].buf[3])), (("PID6 was not populated")), (UNITY_UINT)(131), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)(((pidReq[5].pid & 0xFF))), (UNITY_INT)((testPacket[1].buf[4])), (("PID6 was not populated")), (UNITY_UINT)(132), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((testPacket[1].buf[5])), (("Buffer was not cleared")), (UNITY_UINT)(133), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((testPacket[1].buf[6])), (("Buffer was not cleared")), (UNITY_UINT)(134), UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((testPacket[1].buf[7])), (("Buffer was not cleared")), (UNITY_UINT)(135), UNITY_DISPLAY_STYLE_INT);
 
 }

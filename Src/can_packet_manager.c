@@ -142,6 +142,7 @@ can_packet_manager_status can_pm_generate_message(CAN_message_t *packetPtr, uint
 			nextByte( &frame, &curByte );
 		} else {
 		}
+		(frame > 0) ? packetPtr[frame].buf[0] = frame | 0x20 : 0;
 	}
 	return can_pm_success;
 }
@@ -152,7 +153,7 @@ Static void nextByte( uint8_t *frame, uint8_t *curByte)
 		(*curByte)++;
 	} else {
 		(*frame)++;
-		(*curByte) = 0;
+		(*curByte) = 1;
 	}
 }
 

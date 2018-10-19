@@ -32,7 +32,7 @@ void test_get_PID_length(void)
 
 void test_populate_PID_array_length(void)
 {
-	pid_request_t pidReq[3] = {
+	static pid_request_t pidReq[3] = {
 			{ .pid = 0x0C, .mode = 0x01 },
 			{ .pid = 0x0D, .mode = 0x01 },
 			{ .pid = 0x220D, .mode = 0x01 }
@@ -94,5 +94,44 @@ void test_can_pm_generate_single_packet_message(void)
 	TEST_ASSERT_EQUAL_MESSAGE(pidReq[1].pid, testPacket[0].buf[3], "PID2 was not populated");
 	TEST_ASSERT_EQUAL_MESSAGE(0x22, testPacket[0].buf[4], "PID3 was not populated");
 	TEST_ASSERT_EQUAL_MESSAGE(0x0D, testPacket[0].buf[5], "PID3 was not populated");
+}
+
+void test_can_pm_generate_multi_packet_message(void)
+{
+	int NUM_TEST_PACKETS = 4;
+	CAN_message_t testPacket[NUM_TEST_PACKETS];
+	pid_request_t pidReq[6] = {
+			{ .pid = 0x0C, .mode = 0x01 },
+			{ .pid = 0x0D, .mode = 0x01 },
+			{ .pid = 0x220D, .mode = 0x01 },
+			{ .pid = 0x0B, .mode = 0x01 },
+			{ .pid = 0x5245, .mode = 0x01 },
+			{ .pid = 0x6547, .mode = 0x01 }
+	};
+	uint8_t numIds = 1;
+
+	uint8_t testMode = 0x01;
+
+	can_pm_generate_message(testPacket, NUM_TEST_PACKETS, testMode , pidReq, 6);
+
+	TEST_ASSERT_EQUAL(NUM_TEST_PACKETS, sizeof(testPacket)/sizeof(testPacket[0]));
+
+	TEST_ASSERT_EQUAL_MESSAGE(0x10                   , testPacket[0].buf[0], "frame was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE(10                     , testPacket[0].buf[1], "Length was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE(testMode               , testPacket[0].buf[2], "Mode was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE(pidReq[0].pid          , testPacket[0].buf[3], "PID1 was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE(pidReq[1].pid          , testPacket[0].buf[4], "PID2 was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE((pidReq[2].pid >> 8)   , testPacket[0].buf[5], "PID3 was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE((pidReq[2].pid & 0xFF) , testPacket[0].buf[6], "PID3 was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE(pidReq[3].pid          , testPacket[0].buf[7], "PID4 was not populated");
+
+	TEST_ASSERT_EQUAL_MESSAGE(0x21                   , testPacket[1].buf[0], "frame was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE((pidReq[4].pid >> 8)   , testPacket[1].buf[1], "PID5 was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE((pidReq[4].pid & 0xFF) , testPacket[1].buf[2], "PID5 was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE((pidReq[5].pid >> 8)   , testPacket[1].buf[3], "PID6 was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE((pidReq[5].pid & 0xFF) , testPacket[1].buf[4], "PID6 was not populated");
+	TEST_ASSERT_EQUAL_MESSAGE(0                      , testPacket[1].buf[5], "Buffer was not cleared");
+	TEST_ASSERT_EQUAL_MESSAGE(0                      , testPacket[1].buf[6], "Buffer was not cleared");
+	TEST_ASSERT_EQUAL_MESSAGE(0                      , testPacket[1].buf[7], "Buffer was not cleared");
 }
 

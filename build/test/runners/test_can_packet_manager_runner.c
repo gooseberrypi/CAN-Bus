@@ -40,6 +40,7 @@ extern void test_get_PID_length(void);
 extern void test_populate_PID_array_length(void);
 extern void test_can_pm_set_id(void);
 extern void test_can_pm_generate_single_packet_message(void);
+extern void test_can_pm_generate_multi_packet_message(void);
 
 
 /*=======Mock Management=====*/
@@ -79,6 +80,7 @@ int main(void)
   RUN_TEST(test_populate_PID_array_length, 33);
   RUN_TEST(test_can_pm_set_id, 50);
   RUN_TEST(test_can_pm_generate_single_packet_message, 74);
+  RUN_TEST(test_can_pm_generate_multi_packet_message, 99);
 
   CMock_Guts_MemFreeFinal();
   return (UnityEnd());

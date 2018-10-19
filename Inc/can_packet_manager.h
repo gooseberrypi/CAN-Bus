@@ -34,6 +34,10 @@ typedef struct pid_request_t {
 	uint8_t pid_len;
 }pid_request_t;
 
+typedef struct can_packet_manager {
+	CAN_message_t msg;
+}can_packet_manager;
+
 typedef enum can_packet_manager_status {
 	can_pm_success,
 	can_pm_error

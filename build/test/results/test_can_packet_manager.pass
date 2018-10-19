@@ -15,11 +15,14 @@
 - :test: test_can_pm_generate_single_packet_message
   :line: 74
   :message: ''
+- :test: test_can_pm_generate_multi_packet_message
+  :line: 99
+  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 4
-  :passed: 4
+  :total: 5
+  :passed: 5
   :failed: 0
   :ignored: 0
 :stdout: []
